@@ -1,5 +1,5 @@
 /*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+Copyright © 2024 Adam Cholewiński ITSRICHARDSHANK@GMAIL.COM
 */
 package cmd
 
@@ -15,7 +15,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// urlCmd represents the url command
 var urlCmd = &cobra.Command{
 	Use:   "url",
 	Short: "Download a playlist from m3u8 file url",
