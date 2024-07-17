@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 
@@ -38,7 +39,13 @@ func runUrl(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	url := args[0]
+	urlArg := args[0]
+	urlP, err := url.Parse(urlArg)
+	if err != nil {
+		red.Println("Error parsing URL")
+		red.Println(err)
+		return
+	}
 
 	outputName, _ := cmd.Flags().GetString("output")
 	outputFile := outputName + ".ts"
@@ -50,7 +57,7 @@ func runUrl(cmd *cobra.Command, args []string) {
 	}
 	defer out.Close()
 
-	resp, err := http.Get(url)
+	resp, err := http.Get(urlArg)
 	if err != nil {
 		red.Println("Error downloading the M3U8 file. Please check the URL.")
 		red.Println(err)
@@ -75,7 +82,14 @@ func runUrl(cmd *cobra.Command, args []string) {
 		blue.Printf("\rDownloading segment %d/%d ", i+1, len(segmentURLs))
 		percent := (float64(float64(i)+1) / float64(len(segmentURLs))) * 100
 		blueBold.Printf("(%.0f%%)", percent)
-		tempResp, err := http.Get("https://embed-cloudfront.wistia.com" + segmentURL)
+		wholeSegmentURL := ""
+		segmentURLP, _ := url.Parse(segmentURL)
+		if segmentURLP.Scheme != "" && segmentURLP.Host != "" {
+			wholeSegmentURL = segmentURL
+		} else {
+			wholeSegmentURL = urlP.Scheme + "://" + urlP.Host + segmentURL
+		}
+		tempResp, err := http.Get(wholeSegmentURL)
 		if err != nil {
 			red.Println("\nError downloading a segment")
 			red.Println(err)
