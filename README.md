@@ -30,14 +30,16 @@ go install github.com/richardshank/playlist-dl@latest
 Download the pre-built binaries for your platform from the [releases page](https://github.com/richardshank/playlist-dl/releases)
 1. Download the Binary:
 ```sh
+# Check the releases page for the right system and architecture
+
 # MacOS
-wget https://github.com/richardshank/playlist-dl/releases/download/0.1.0/playlist-dl-macos.zip
+wget https://github.com/richardshank/playlist-dl/releases/download/0.1.0/playlist-dl-macos-arm64.zip
 
 # Linux
-wget https://github.com/richardshank/playlist-dl/releases/download/0.1.0/playlist-dl-linux.zip
+wget https://github.com/richardshank/playlist-dl/releases/download/0.1.0/playlist-dl-linux-amd64.zip
 
 # Windows
-wget https://github.com/richardshank/playlist-dl/releases/download/0.1.0/playlist-dl-windows.zip
+wget https://github.com/richardshank/playlist-dl/releases/download/0.1.0/playlist-dl-windows-amd64.zip
 ```
 2. Extract the Binary:
 ```sh
