@@ -4,7 +4,6 @@ Copyright © 2024 Adam Cholewiński ITSRICHARDSHANK@GMAIL.COM
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -13,7 +12,6 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "playlist-dl",
 	Short: "playlist-dl is a CLI tool for downloading videos from m3u8 playlists.",
-	Run:   runRoot,
 }
 
 func Execute() {
@@ -25,16 +23,5 @@ func Execute() {
 
 func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	rootCmd.Flags().BoolP("version", "v", false, "Version of the tool")
-}
-
-func runRoot(cmd *cobra.Command, args []string) {
-	currentVersion := "0.1.1"
-
-	version, _ := cmd.Flags().GetBool("version")
-	if version {
-		fmt.Println("playlist-dl CLI " + currentVersion)
-	} else {
-		cmd.Help()
-	}
+	rootCmd.Version = "0.1.1"
 }
