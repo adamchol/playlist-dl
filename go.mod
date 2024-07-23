@@ -1,4 +1,4 @@
-module github.com/richardshank/playlist-dl
+module github.com/adamchol/playlist-dl
 
 go 1.22.2
 
