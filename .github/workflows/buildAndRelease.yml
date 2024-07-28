@@ -1,0 +1,34 @@
+name: Build & Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_executables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+      - name: Set up Go env
+        uses: actions/setup-go@v4
+        with:
+          go-version: '>=1.17.0'
+      - name: Run build script
+        run: ./scripts/crossBuild.sh
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            scripts/playlist-dl-linux-amd64.zip
+            scripts/playlist-dl-linux-arm.zip
+            scripts/playlist-dl-linux-arm64.zip
+            scripts/playlist-dl-macos-amd64.zip
+            scripts/playlist-dl-macos-arm64.zip
+            scripts/playlist-dl-windows-386.zip
+            scripts/playlist-dl-windows-amd64.zip
