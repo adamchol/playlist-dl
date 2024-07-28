@@ -23,9 +23,14 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          name: playlist-dl CLI ${{ github.ref }}
+          name: playlist-dl CLI ${{ github.ref_name }}
           files: build/*.zip
